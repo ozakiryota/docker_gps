@@ -26,7 +26,9 @@ RUN apt-get update && apt-get install -y \
 	echo "#!/bin/bash\nsudo chmod a+rw /dev/ttyUSB0 &&\nroscore &\nrosrun nmea_navsat_driver nmea_topic_serial_reader _port:=\"/dev/ttyUSB0\" _baud:=\"36800\" &\nrosrun nmea_navsat_driver nmea_topic_driver &\nrosrun gps_common utm_odometry_node" >> /home/small_gps_run.sh && \
 	chmod +x /home/small_gps_run.sh && \
 	echo "#!/bin/bash\nsudo chmod a+rw /dev/ttyUSB0 &&\nroscore &\nrosrun nmea_navsat_driver nmea_topic_serial_reader _port:=\"/dev/ttyUSB0\" _baud:=\"19200\" &\nrosrun nmea_navsat_driver nmea_topic_driver _useRMC:=\"True\" &\nrosrun gps_common utm_odometry_node" >> /home/big_gps_run.sh && \
-	chmod +x /home/big_gps_run.sh
+	chmod +x /home/big_gps_run.sh && \
+	echo "#!/bin/bash\nrosbag record /fix /gps_odom /gps_vel /nmea_sentence /time_reference" >> /home/gps_record.sh && \
+	chmod +x /home/gps_record.sh
 ########## nvidia-docker1 hooks ##########
 LABEL com.nvidia.volumes.needed="nvidia_driver"
 ENV PATH /usr/local/nvidia/bin:${PATH}

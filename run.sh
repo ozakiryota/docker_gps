@@ -11,5 +11,6 @@ nvidia-docker run -it --rm \
 	--volume="/tmp/.X11-unix:/tmp/.X11-unix:rw" \
 	--net=host \
 	--device=/dev/ttyUSB0 \
-	$image_name:latest 
-	/bin/bash /home/small_gps_run.sh
+	$image_name:latest \ 
+	/bin/bash /home/big_gps_run.sh
+	# /bin/bash /home/small_gps_run.sh
