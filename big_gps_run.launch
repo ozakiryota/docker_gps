@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<launch> 
+	<arg name="port" default="/dev/ttyUSB0"/>
+	<arg name="baud" default="19200"/>
+
+	<!--read sentence and publish topic-->
+	<node pkg="nmea_navsat_driver" type="nmea_topic_serial_reader" name="nmea_topic_serial_reader">
+		<param name="port" value="$(arg port)"/>
+		<param name="baud" value="$(arg baud)"/>
+	</node>
+
+	<!--subscribe topic-->
+	<node pkg="nmea_navsat_driver" type="nmea_topic_driver" name="nmea_topic_driver">
+		<param name="useRMC" value="True" /> 
+	</node>
+
+	<node pkg="gps_common" type="utm_odometry_node" name="utm_odometry_node"/>
+</launch>
+
+
+<!-- HOW TO RUN using rosrun:-->
+<!-- rosrun nmea_navsat_driver nmea_tpic_serial_driver _port:=/dev/ttyUSB0 _baud:=57600 -->
+<!-- rosrun nmea_navsat_driver nmea_topic_driver -->
